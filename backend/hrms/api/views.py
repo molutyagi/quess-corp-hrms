@@ -3,6 +3,10 @@ from rest_framework.response import Response
 from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
 
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+
+
 from hrms.api.serializers import EmployeeSerializer, AttendanceSerializer
 
 
@@ -28,6 +32,7 @@ from hrms.services.attendance_service import (
     update_attendance_service
 )
 
+@method_decorator(csrf_exempt, name="dispatch")
 class EmployeeViewSet(viewsets.ViewSet):
     def list(self, request):
         employees = get_all_employees()
@@ -86,6 +91,7 @@ class EmployeeViewSet(viewsets.ViewSet):
             return Response({"error": "Employee not found"}, status=status.HTTP_404_NOT_FOUND)
 
 
+@method_decorator(csrf_exempt, name="dispatch")
 class AttendanceViewSet(viewsets.ViewSet):
     def list(self, request):
         employee_id = request.query_params.get("employee")

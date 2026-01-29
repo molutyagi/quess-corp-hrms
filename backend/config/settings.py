@@ -30,9 +30,18 @@ DEBUG = os.getenv("DEBUG") == "True"
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
 
+CORS_ALLOW_CREDENTIALS = True
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "https://quess-corp-hrms.vercel.app",
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://quess-corp-hrms.vercel.app",
+    "https://quess-corp-hrms.onrender.com",
+]
+
 
 
 # Application definition
